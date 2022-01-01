@@ -7,4 +7,4 @@ The Code loops over folders corresponding to subjects. For each subject the R2 t
 The binned data is then averaged over all subjects. 
 
 Starting point was code written by Alexander M. Weber  (doi:10.1002/nbm.4222)
-The code for plotting the angle dependen T2 distributions was adapted based on work by Jon Doucette 
+The code for plotting the angle dependent T2 distributions was adapted based on work by Jon Doucette 
