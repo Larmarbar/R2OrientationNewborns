@@ -1,6 +1,7 @@
 function plotalldec()
 pwd
-load('../log.mat');
+
+load('log.mat');
 numpat = length(namelist);
 cd(outpath);
 grpmpath = sprintf('%s/%s_T2starorien_%s_dec.mat',outpaths{1},namelist{1}, 'mgm');

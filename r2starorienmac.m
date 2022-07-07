@@ -20,6 +20,14 @@ anglemasked=[newv1(indx,1) newv1(indx,2) newv1(indx,3)];
 b0=zeros(size(anglemasked));
 b0(:,3)=1;  % set B0 along z direction 
 
+if isfile('../BASELINE/B0_VoxelSpace.mat')
+    load('../BASELINE/B0_VoxelSpace.mat');
+    b0(:,1) = B0x;
+    b0(:,2) = B0y;
+    b0(:,3) = B0z;
+end
+
+    
 R2masked = r2starload(indx);
 numvoxels=length(indx); % #voxels in mask
 
@@ -57,6 +65,8 @@ end
 %% Group R2(*) data by corresponding angle bins 
 % Also calculates stdev, numvox and sem for each bin
 [statarray,grps,stdv,numvox,sem]=grpstats(orientation(:,2),orientation(:,4),{'mean','gname', 'std', 'numel', 'sem'});
+
+
 grps2=str2double(grps);
 err = sem;
 

@@ -26,11 +26,11 @@ elseif strcmp(model, 'diffu')
     modelname = "Diffusion model";
     ini = [0,0];
 
-elseif strcmp(model, 'constant')
-    fitfun = 'a';
-    modelFunc = @(a,x) a;
-    modelname = "Constant";
-    ini = [0,0,0,0];    
+elseif strcmp(model, 'linear')
+    fitfun = 'a-b*x';
+    modelFunc = @(a,x) a(1)-a(2)*x;
+    modelname = "linear";
+    ini = [0];    
 end
 
 end

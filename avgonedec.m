@@ -30,6 +30,7 @@ semavg = 1./sqrt(sum(weightsem,1));
 
 avgwsem = sum(statall.*weightsem,1)./sum(weightsem,1);
 avgwvox = sum(statall.*numallvox,1)./sum(numallvox,1);
+subjstd = std(statall,1);
 
 
 cd(outpath);
@@ -104,7 +105,7 @@ if strcmp(decpar, 'sgm')| strcmp(decpar, 'mgm')|strcmp(decpar, 'ggm')
     end
     
     if sum(isnan(avgwsem))==0
-        fitmodelpaper(grps2, avgwsem, semavg, firstpoint, decpar)
+        fitmodel(grps2, avgwvox, subjstd, totnumvox, firstpoint, decpar)
 
         
     end

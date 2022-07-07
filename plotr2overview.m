@@ -54,6 +54,7 @@ function plotr2overview(parameters, patfolder, dataset)
      WMmask = sprintf('../%s/WM_mask_T1.nii.gz',subdir);
      grasebet = sprintf('../%s/GRASE_e0_bet_mask.nii.gz',subdir);
      brainmask = niftiread_unzip(grasebet);
+     %WMmask = brainmask;
   end
 
 
@@ -63,7 +64,7 @@ currdir = pwd;
 
 %% select slice to be diplayed
 
-slice = 15;
+slice = 16;
 v1load = niftiread_unzip(V1data);
 v1slice = v1load(:,:,slice,:);
 clear v1load;
@@ -94,7 +95,7 @@ wmslice = rot90(wmslice(lmargin:end-rmargin, bmargin:end-tmargin));
 v1slice = rot90(v1slice(lmargin:end-rmargin, bmargin:end-tmargin,:));
 faslice = rot90(faslice(lmargin:end-rmargin, bmargin:end-tmargin));
 brainslice = rot90(brainslice(lmargin:end-rmargin, bmargin:end-tmargin));
-
+wmslice = double(brainslice);
 
 sgmslicewm = sgmslice .*wmslice;
 mwfslicewm = mwfslice.*wmslice;

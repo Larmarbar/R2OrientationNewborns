@@ -25,7 +25,7 @@ ANGLE_COLORS(3,:) = brm(9,:);
 
 %%% try using unweighted fit as initialisation for weighted one, add nneg
 
-modellist = ["dipoledipolesq","diffu","susc_diffu"];
+modellist = ["dipoledipolesq","diffu"];%,"susc_diffu"];
 save(sprintf('%s_avgR2.mat',comp), 'avgsr2w', 'stdavgr2','firstpoint','theta');
 key = ["Model", "Fit parameters", "Fitparameters NL", "GOF R2, adj. R2", "mae"];
 fitparam = {};

@@ -121,8 +121,9 @@ function [V1data, WMmask, brainmaskpath]=MWIdec(patfolder, outpath, parameters, 
     MDdata = sprintf('../dtifit_MD_to_%s.nii.gz',refgrase);
     L1data = sprintf('../dtifit_L1_to_%s.nii.gz',refgrase);
      
-    WMmask = '../WM_mask_FA_fast.nii.gz';
+    WMmask = '../WM_mask_FA_thr15_edit.nii.gz';
     brainmaskpath = '../GRASE_median_bet_mask.nii.gz';
+%     WMmask = brainmaskpath;
 
  elseif contains(dataset, 'baseline') | contains(dataset, 'twoweeks')
      % set which GRASE echo etc was used for registration
@@ -140,7 +141,10 @@ function [V1data, WMmask, brainmaskpath]=MWIdec(patfolder, outpath, parameters, 
     MDdata = sprintf('../%s/dtifiteddy_MD_to_%s.nii.gz', subdir, refgrase);
     L1data = sprintf('../%s/dtifiteddy_L1_to_%s.nii.gz', subdir, refgrase);
     WMmask = sprintf('../%s/WM_mask_T1.nii.gz',subdir);
+%     WMmask = sprintf('../%s/GM_mask_T1.nii.gz',subdir);
+
     brainmaskpath = sprintf('../%s/mergedGRASE_bet_mask.nii.gz',subdir);
+%     WMmask = brainmaskpath;
 
  end
  

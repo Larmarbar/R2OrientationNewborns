@@ -39,17 +39,17 @@ function data = plot_spectra_Jon_prep(data,patnum)
 
     % Calculation of Theta
     %--------------------------------------------------------------------------
-    slice = 15;
+    slice = 16; %16 or 12
 
-    lmargin = 25;
-    rmargin = 25;
-    tmargin = 25;
-    bmargin = 1;
+%     lmargin = 25;
+%     rmargin = 25;
+%     tmargin = 10;
+%     bmargin = 1;
     
-    % lmargin = 55;
-    % rmargin = 55;
-    % tmargin = 45;
-    % bmargin = 75;
+    lmargin = 55;
+    rmargin = 55;
+    tmargin = 45;
+    bmargin = 75;
     
     data.theta = data.v1(:,:,:,3);
     data.theta(data.theta == 0) = NaN;
