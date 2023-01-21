@@ -1,6 +1,6 @@
 parameterlist = {};
-% dataset = 'neon' 
-dataset = 'baseline_subset'
+dataset = 'neon' 
+% dataset = 'baseline_subset'
 
 %Add parameters used in decaes to be analysed to parameterlist
 

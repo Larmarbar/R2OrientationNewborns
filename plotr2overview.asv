@@ -14,7 +14,7 @@ function plotr2overview(parameters, patfolder, dataset)
       rmargin = 55;
       tmargin = 45;
       bmargin = 75;
-      slice = 11;
+      slice = 14;
       % set which GRASE echo etc was used for registration
      refgrase = 'GRASEmedian';
      GGMdata = 'GGM_dec.nii';
@@ -33,7 +33,7 @@ function plotr2overview(parameters, patfolder, dataset)
      lmargin = 25;%45%25;
      bmargin = 1;%45%25;
      tmargin = 10;%45%25;
-     slice = 10;
+     slice = 11;
 
      % set which GRASE echo etc was used for registration
      if contains(dataset, 'baseline')

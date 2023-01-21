@@ -11,7 +11,7 @@ load(mgpath, 'statarray');
 sizestatarray = size(statarray);
 numbins = sizestatarray(1);
 
-decpars = {'mgm','sgm','ggm','sfr'};
+decpars = {'mgm','sgm','ggm','sfr','r2'};
 for i=1:length(decpars)
    avgonedec(decpars{i},numpat,numbins,namelist,outpath,outpaths,parameters); 
    close all;

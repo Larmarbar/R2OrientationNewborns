@@ -39,7 +39,7 @@ function data = plot_spectra_Jon_prep(data,patnum)
 
     % Calculation of Theta
     %--------------------------------------------------------------------------
-    slice = 16; %16 or 12
+    slice = 11; %16 or 12
 
 %     lmargin = 25;
 %     rmargin = 25;

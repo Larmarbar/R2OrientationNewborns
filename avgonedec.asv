@@ -43,12 +43,12 @@ figure
 hold on;
 %title(sprintf('Average %s %s', decpar, parameters),'Interpreter', 'none');
 histogram('BinEdges', edges.' ,'BinCounts',totnumvox);
-sinamp = sum(totnumvox)*5/360*2*pi;
+sinamp = max(totnumvox);
 xlabel('Angle');
 ylabel('#voxel');
 figname = sprintf('/home/lbartels/Research/Analysis/histogram_voxelnum.png');
 thetas = linspace(0,90,100);
-plot(thetas, sinamp.*sin(thetas/360*2*pi), 'LineWidth',2,'Color', [0.6350 0.078 0.184]);
+plot(thetas, sinamp.*sin(thetas/360*2*pi), LineWidth');
 saveas(gcf, figname);
 hold off;
 

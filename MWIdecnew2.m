@@ -65,7 +65,7 @@ function [V1data, WMmask, brainmaskpath]=MWIdec(patfolder, outpath, parameters, 
      decinfo.Datatype = 'double';
      decinfo = rmfield(decinfo, 'Filename');
      decinfo = rmfield(decinfo, 'Filesize');
-
+    
      decinfo = rmfield(decinfo, 'BitsPerPixel');
  end
  
@@ -122,6 +122,8 @@ function [V1data, WMmask, brainmaskpath]=MWIdec(patfolder, outpath, parameters, 
     L1data = sprintf('../dtifit_L1_to_%s.nii.gz',refgrase);
      
     WMmask = '../WM_mask_FA_thr15_edit.nii.gz';
+%     WMmask = '../WM_mask_FA_fast_ero3D.nii.gz';
+
     brainmaskpath = '../GRASE_median_bet_mask.nii.gz';
 %     WMmask = brainmaskpath;
 
@@ -141,6 +143,8 @@ function [V1data, WMmask, brainmaskpath]=MWIdec(patfolder, outpath, parameters, 
     MDdata = sprintf('../%s/dtifiteddy_MD_to_%s.nii.gz', subdir, refgrase);
     L1data = sprintf('../%s/dtifiteddy_L1_to_%s.nii.gz', subdir, refgrase);
     WMmask = sprintf('../%s/WM_mask_T1.nii.gz',subdir);
+%     WMmask = sprintf('../%s/WM_prereg_T1.nii.gz',subdir);
+
 %     WMmask = sprintf('../%s/GM_mask_T1.nii.gz',subdir);
 
     brainmaskpath = sprintf('../%s/mergedGRASE_bet_mask.nii.gz',subdir);
@@ -154,6 +158,21 @@ runoronepar(V1data, WMmask, SGMdata, 'sgm', FAdata,pname);
 runoronepar(V1data, WMmask, GGMdata, 'ggm', FAdata,pname);
 runoronepar(V1data, WMmask, SFRdata, 'sfr', FAdata,pname);
 close all 
+
+
+%%% MonoExponential Fit Option
+
+% Monoexp R2 fit 
+header.echotimes = 10*[1:32];
+size(grase)
+header.nechoes = 32;
+monoexp = calculate_R2star(grase,brainmaskload,header);
+mononii = make_nii(monoexp,voxelsize);
+monon = 'MonoR2.nii.gz';
+save_nii(mononii,'MonoR2_1stechoexcluded.nii.gz');
+
+runoronepar(V1data, WMmask, monon, 'r2', FAdata,pname);
+
 
 
 end 

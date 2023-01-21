@@ -31,7 +31,12 @@ elseif strcmp(model, 'linear')
     modelFunc = @(a,x) a(1)-a(2)*x;
     modelname = "linear";
     ini = [0];    
-end
+
+elseif strcmp(model, 'combined')
+    fitfun = 'a+b*sin(x/360*2*pi).^4+c*(3*(cos(x/360*2*pi)).^2-1).^2';
+    modelFunc = @(a,x) a(1)+a(2)*(sin(x/360*2*pi)).^4+a(3)*(3*(cos(x/360*2*pi)).^2-1).^2;
+    modelname = "Combined model";
+    ini = [0,0,0];
 
 end
 

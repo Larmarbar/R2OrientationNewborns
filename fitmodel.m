@@ -31,7 +31,7 @@ ANGLE_COLORS(3,:) = brm(9,:);
 
 %%% try using unweighted fit as initialisation for weighted one, add nneg
 
-modellist = ["dipoledipolesq","diffu"];%,"susc_diffu"];
+modellist = ["dipoledipolesq","diffu","susc_diffu"]; %"combined"];%,"susc_diffu"];
 save(sprintf('%s_avgR2.mat',comp), 'avgsr2w', 'stdavgr2','firstpoint','theta');
 key = ["Model", "Fit parameters", "Fitparameters NL", "GOF R2, adj. R2", "mae"];
 
@@ -52,34 +52,47 @@ for i=1:length(modellist)
     if strcmp(modellist(i),'susc_diffu')
         lowb = [0,-Inf,0];
         ini = [0,0,0];
+    elseif strcmp(modellist(i),'combined')
+        lowb = [0,0,0];
+        ini = [0,0,0];
     else
         lowb = [0,0];
-        ini = [0,0]
+        ini = [0,0];
     end
     
 %     if strcmp(modellist(i), 'dipoledipolesq')
 %         star = [10,2]
 %     end    dataset = 'neon' 
+%% Define colours 
+dred = [0.6350 0.0780 0.1840];
+grass = [0.446 0.6740 0.1880];
+dblue = [0 0.4470 0.7410];
+lred = [0.8500,0.3250,0.098];
+yel = [0.929, 0.694,0.125]
 
-    
     [fit1,gof,fitinfo] = fit(grps2fit,avgsr2fit.',f,'Weight', weightsvoxfit, 'Lower', lowb);
     nlm1 = fitnlm(grps2fit,avgsr2fit.',modelFunc,ini,'Weight', weightsvoxfit);
 
     if strcmp(modellist(i),'dipoledipolesq')
-        legentry{end+1} = '$R_2=R_{2,i}+R_{2,a}(3\cos^2\theta-1)^2$';
+        legentry{end+1} = '$R_2=R_{2,i}+R_{2,d}(3\cos^2\theta-1)^2$';
         col = ANGLE_COLORS(1,:);
         width = 2;
         styl = '-';
     elseif strcmp(modellist(i),'susc_diffu')
-        legentry{end+1} = '$R_2=R_{2,i}+R_{2,a}\sin^4\theta+ R_{2,b}\sin^2\theta$';
+        legentry{end+1} = '$R_2=R_{2,i}+R_{2,s}\sin^4\theta+ R_{2,g}\sin^2\theta$';
         col = ANGLE_COLORS(3,:);
         width = 2;
         styl = '--';
     elseif strcmp(modellist(i),'diffu')
-        legentry{end+1} = '$R_2=R_{2,i}+R_{2,a}\sin^4\theta$';
-        col = ANGLE_COLORS(2,:);
+        legentry{end+1} = '$R_2=R_{2,i}+R_{2,s}\sin^4\theta$';
+        col = dblue%ANGLE_COLORS(2,:);
         width = 2;
         styl = '-';
+    elseif strcmp(modellist(i),'combined')
+        legentry{end+1} = ['$R_2=R_{2,i}+R_{2,s}\sin^4\theta$' newline '    $\quad +R_{2,d}(3\cos^2\theta-1)^2$'];
+        col = grass;
+        width = 2;
+        styl = '--';
     end
     
     fitnl = nlm1.Coefficients.Estimate;
@@ -97,7 +110,7 @@ for i=1:length(modellist)
     
 %%% Calculation of gof parameters    
     % first for regular fit function 
-    maef = calcmae(predfnl, avgsr2fit);
+    maef = calcmae(predf, avgsr2fit);
     loglikfit = -N*log(gof.sse/N);
     fitaic = -2*loglikfit+2*p;
     fitaicc = fitaic+(2*p^2+2*p)/(N-p-1);
@@ -136,8 +149,13 @@ if strcmp(comp,'sgm');
 elseif strcmp(comp,'mgm')
     ylab = 'Intra- and Extracellular Water $R_2$ (Hz)'
 %     ylim([11.0,12.5]);
-%     legend(legentry, 'Location', 'northeast','FontSize',16);
+    legend(legentry, 'Location', 'northeast','FontSize',15);
+elseif strcmp(comp,'r2')
+    ylab = '$R_2$ (Hz)'
+    ylim([5.0,7.5]);
+    legend(legentry, 'Location', 'northeast','FontSize',15);
 
+    
 else
     ylab = '$R_2$'
 end
